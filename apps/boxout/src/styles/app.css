@@ -1,0 +1,188 @@
+/* Boxout-only layout / mobile / nesting — tokens live in @dashboard/shared */
+
+.mobile-toggle,
+.mobile-table,
+.mobile-viewer,
+.mobile-send-results {
+  display: none;
+}
+
+.nesting-curve-preview {
+  display: none;
+}
+
+.center-panel--nesting-preview .nesting-curve-preview {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  /* Full-screen chat */
+  .app:not(:has(.message-user)) .main {
+    display: none;
+  }
+
+  .app:not(:has(.message-user)) .sidebar {
+    flex: 1 1 auto;
+  }
+
+  /* Dashboard: table (1/3) + toggle + viewer (2/3) */
+  .app:has(.message-user) .main {
+    order: 1;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto minmax(0, 2fr);
+  }
+
+  .app:has(.message-user) .center-panel {
+    display: contents;
+  }
+
+  .app:has(.message-user) .mobile-table {
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: auto;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .app:has(.message-user) .mobile-toggle {
+    grid-row: 2;
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .app:has(.message-user) .mobile-viewer {
+    grid-row: 3;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .app:has(.message-user) .parallel-slot {
+    display: none;
+    flex: 1;
+    border-bottom: none;
+  }
+
+  .main:has(#mobile-plot:checked) .parallel-slot {
+    display: flex;
+  }
+
+  .main:has(#mobile-plot:checked) .mobile-viewer .nesting-panel-bar,
+  .main:has(#mobile-plot:checked) .mobile-viewer .nesting-curve-preview {
+    display: none;
+  }
+
+  .app:has(.message-user):not(:has(#mobile-chat:checked)) .sidebar {
+    display: none;
+  }
+
+  .app:has(.message-user):has(#mobile-chat:checked) {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto minmax(0, 2fr);
+  }
+
+  .app:has(.message-user):has(#mobile-chat:checked) .main {
+    display: contents;
+  }
+
+  .app:has(.message-user):has(#mobile-chat:checked) .mobile-viewer,
+  .app:has(.message-user):has(#mobile-chat:checked) .main > .view {
+    display: none;
+  }
+
+  .app:has(.message-user):has(#mobile-chat:checked) .sidebar {
+    display: flex;
+    grid-row: 3;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    gap: 0;
+    border-right: none;
+  }
+
+  .app:has(.message-user):has(#mobile-chat:checked) .chat-slot {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .app:has(.message-user) .sidebar h1 {
+    display: none;
+  }
+
+  .main > .view {
+    display: none;
+    min-height: 0;
+    grid-row: 3;
+  }
+
+  .mobile-viewer .nesting-panel-bar,
+  .mobile-viewer .nesting-curve-preview {
+    display: none;
+    min-height: 0;
+  }
+
+  .main:has(#mobile-3d:checked) .mobile-viewer {
+    display: none;
+  }
+
+  .main:has(#mobile-3d:checked) > .view {
+    display: block;
+    border-left: none;
+  }
+
+  .main:has(#mobile-nesting:checked) .nesting-panel-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-shrink: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .main:has(#mobile-nesting:checked) .nesting-panel-bar .nesting-divider,
+  .main:has(#mobile-nesting:checked) .nesting-column--action {
+    display: none;
+  }
+
+  .main:has(#mobile-nesting:checked) .nesting-curve-preview {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .main:has(#mobile-nesting:checked) .mobile-send-results {
+    display: block;
+    flex-shrink: 0;
+    padding: 0.65rem;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-neutral-bg);
+  }
+
+  .main:has(#mobile-nesting:checked) .mobile-send-results .btn-send-results {
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.35rem;
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+  }
+
+  .main:has(#mobile-nesting:checked) .mobile-send-results .btn-send-results__line {
+    display: inline;
+  }
+
+  .center-panel--nesting-preview .nesting-curve-preview {
+    display: none;
+  }
+}

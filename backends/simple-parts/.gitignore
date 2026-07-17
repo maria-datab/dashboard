@@ -1,0 +1,10 @@
+/output/*.dxf
+/output/metadata/*.dxf
+/tmp/
+/routes/__pycache__/
+
+# Pipenv / virtualenv
+.venv/
+
+#environment variables
+*.env

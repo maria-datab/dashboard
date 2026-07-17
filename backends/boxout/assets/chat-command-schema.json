@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Box Chat Command",
+  "type": "object",
+  "required": ["action"],
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["add", "update", "delete", "clear"]
+    },
+    "add": {
+      "type": "object",
+      "properties": {
+        "inputLists": {
+          "type": "object",
+          "properties": {
+            "BoxDepth": { "type": "array", "items": { "type": "integer" } },
+            "BoxHeight": { "type": "array", "items": { "type": "integer" } },
+            "BoxWidth": { "type": "array", "items": { "type": "integer" } }
+          },
+          "required": ["BoxDepth", "BoxHeight", "BoxWidth"]
+        },
+        "variationNames": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["inputLists"]
+    },
+    "boxNumbers": {
+      "type": "array",
+      "items": { "type": "integer" },
+      "description": "1-based box numbers for update"
+    },
+    "boxNumber": {
+      "type": "integer",
+      "description": "1-based box number for delete"
+    },
+    "fields": {
+      "type": "object",
+      "properties": {
+        "BoxDepth": { "type": "integer" },
+        "BoxHeight": { "type": "integer" },
+        "BoxWidth": { "type": "integer" }
+      },
+      "additionalProperties": false
+    },
+    "fieldDeltas": {
+      "type": "object",
+      "description": "Signed mm change per dimension; applied independently to each box in boxNumbers",
+      "properties": {
+        "BoxDepth": { "type": "integer" },
+        "BoxHeight": { "type": "integer" },
+        "BoxWidth": { "type": "integer" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

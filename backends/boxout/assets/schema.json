@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Box Variation CSV Normalization",
+  "description": "Normalized Grasshopper input lists from messy or mislabeled box variation CSV. Out-of-range values are allowed; the client flags them in the UI.",
+  "type": "object",
+  "properties": {
+    "inputLists": {
+      "type": "object",
+      "description": "Column-oriented box dimensions, one value per variation row",
+      "properties": {
+        "BoxDepth": {
+          "type": "array",
+          "description": "Box depth in mm (150–450 is valid for compute; out-of-range values are still returned)",
+          "items": {
+            "type": "integer"
+          },
+          "minItems": 1
+        },
+        "BoxHeight": {
+          "type": "array",
+          "description": "Box height in mm (600–2600 is valid for compute; out-of-range values are still returned)",
+          "items": {
+            "type": "integer"
+          },
+          "minItems": 1
+        },
+        "BoxWidth": {
+          "type": "array",
+          "description": "Box width in mm (800–1000 is valid for compute; out-of-range values are still returned)",
+          "items": {
+            "type": "integer"
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["BoxDepth", "BoxHeight", "BoxWidth"],
+      "additionalProperties": false
+    },
+    "variationNames": {
+      "type": "array",
+      "description": "Optional echo of box labels (e.g. Box 1, Box 2); client may use names from the source CSV",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["inputLists"]
+}

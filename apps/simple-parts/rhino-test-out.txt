@@ -1,0 +1,2 @@
+Text ctor Text has no accessible constructor
+style {}

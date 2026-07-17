@@ -1,0 +1,17 @@
+{
+  "name": "@dashboard/shared",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./styles/tokens.css": "./styles/tokens.css",
+    "./components/ChatPanel.vue": "./components/ChatPanel.vue",
+    "./components/Sidebar.vue": "./components/Sidebar.vue",
+    "./components/MobileToggle.vue": "./components/MobileToggle.vue",
+    "./composables/useJobPoller.js": "./composables/useJobPoller.js",
+    "./types.js": "./types.js"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  }
+}

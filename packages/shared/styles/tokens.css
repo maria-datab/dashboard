@@ -1,0 +1,140 @@
+/* Shared design tokens — import this file in every app instead of a local styles.css */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  /* Accent */
+  --color-accent: #1d4e89;
+  --color-accent-bg: #e6f2ff;
+  --color-accent-bg-hover: #d4e8ff;
+
+  /* Selection */
+  --color-selection: #3498db;
+  --color-selection-bg: #e3f2fb;
+
+  /* Neutrals */
+  --color-border: #cccccc;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f5f5f5;
+  --color-text-summary: #333333;
+  --color-text-muted: #888888;
+  --color-text-chat: #c4c4c4;
+  --color-text-code: #353535;
+  --color-viewer-background: #ebebeb;
+  --color-viewer-foreground: #333333;
+
+  /* Warm stone */
+  --color-neutral-bg: #fafaf9;
+  --color-neutral-bg-hover: #f5f5f4;
+  --color-neutral-selected: #e7e5e4;
+  --color-neutral-accent: #57534e;
+  --color-neutral-edited: #f5f2ed;
+  --color-neutral-edited-accent: #a8a29e;
+  --color-result-bg: #f0efed;
+  --color-result-text: #78716c;
+
+  /* Status */
+  --color-success: #137333;
+  --color-success-bg: #e6f4ea;
+  --color-error: #c5221f;
+  --color-error-bg: #aa3333;
+  --color-error-on: #ffffff;
+  --color-warning: #b06000;
+  --color-warning-emphasis: #8a5200;
+  --color-warning-bg: #fef7e0;
+
+  /* simple-parts: salmon CTA */
+  --color-salmon: #e8a090;
+  --color-salmon-hover: #d98978;
+  --color-salmon-bg: #fde8e2;
+
+  /* simple-parts: part highlight colors */
+  --color-part-red: #ff0000;
+  --color-part-yellow: #ffff00;
+  --color-part-purple: #800080;
+  --color-part-brown: #712e11;
+  --color-part-green: #188500;
+  --color-part-blue: #176498;
+  --color-part-grey: #808080;
+  --color-part-orange: #ff8c00;
+  --color-part-pink: #e91e8c;
+  --color-part-default: #b0b0b0;
+}
+
+/* Part legend color helpers (used in simple-parts chat bubbles) */
+.legend-part-red    { color: var(--color-part-red); }
+.legend-part-green  { color: var(--color-part-green); }
+.legend-part-blue   { color: var(--color-part-blue); }
+.legend-part-grey   { color: var(--color-part-grey); }
+.legend-part-orange { color: var(--color-part-orange); }
+.legend-part-pink   { color: var(--color-part-pink); }
+
+/* Base resets */
+html, body, #app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+
+/* Shared app shell */
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  flex: 0 0 16.666667%;
+  min-width: 240px;
+  padding: 1rem;
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  display: flex;
+}
+
+/* Mobile toggle (hidden-radio tab pattern) */
+.mobile-toggle {
+  display: none;
+}
+
+.mobile-toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mobile-toggle label {
+  flex: 1;
+  padding: 0.4rem;
+  font-size: 0.8rem;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.mobile-toggle input:checked + label {
+  background: var(--color-neutral-selected);
+}
+
+.mobile-toggle input:disabled + label {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
