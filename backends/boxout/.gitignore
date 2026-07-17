@@ -31,3 +31,7 @@ Thumbs.db
 
 # Logs
 *.log
+
+# CAD / geometry inputs — do not upload
+*.dxf
+*.DXF

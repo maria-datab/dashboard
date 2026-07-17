@@ -32,3 +32,7 @@ coverage/
 
 # Optional npm cache directory
 .npm/
+
+# CAD / geometry inputs — do not upload
+*.dxf
+*.DXF

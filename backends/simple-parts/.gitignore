@@ -1,5 +1,7 @@
-/output/*.dxf
-/output/metadata/*.dxf
+# CAD / geometry inputs — do not upload
+*.dxf
+*.DXF
+
 /tmp/
 /routes/__pycache__/
 

@@ -14,5 +14,9 @@ __pycache__/
 *.wasm
 .cache/
 
+# CAD / geometry inputs — do not upload
+*.dxf
+*.DXF
+
 boxout-copy/
 simple-parts-copy/
