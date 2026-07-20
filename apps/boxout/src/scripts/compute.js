@@ -6,7 +6,7 @@
 import { markRaw } from 'vue'
 import { getApiBase, getPollIntervalMs } from '@/scripts/env.js'
 import { runJobPoll } from '@dashboard/shared/composables/useJobPoller.js'
-import { loadRhino } from '@dashboard/shared/rhino/loadRhino.js'
+import { getRhino, loadRhino } from '@dashboard/shared/rhino/loadRhino.js'
 
 export { loadRhino }
 
@@ -224,7 +224,7 @@ function sortedBranchPaths(innerTree) {
  * @returns {{ doc: object, geometryCount: number }}
  */
 export function createDocFromGhResponse(res) {
-  const r = rhino
+  const r = getRhino()
   const doc = new r.File3dm()
   let geometryCount = 0
 

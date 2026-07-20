@@ -19,3 +19,14 @@ export async function loadRhino() {
 
   return loadPromise
 }
+
+/**
+ * Sync accessor after loadRhino() has resolved.
+ * @returns {object} rhino3dm module
+ */
+export function getRhino() {
+  if (!rhino) {
+    throw new Error('Rhino3dm not loaded. Call await loadRhino() first.')
+  }
+  return rhino
+}
