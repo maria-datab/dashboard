@@ -1,5 +1,9 @@
 # Agent Coding Prompt — Unified Dashboard Migration
 
+> **HISTORICAL.** The migration described below has been completed.
+> Do not re-bootstrap from this file. Current layout and run steps: [`README.md`](README.md).
+> Architecture notes: [`DASHBOARD_PLAN.md`](DASHBOARD_PLAN.md).
+
 ## Context
 
 You are working inside a monorepo root at the path where this file lives.

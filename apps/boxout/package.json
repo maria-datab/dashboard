@@ -12,10 +12,10 @@
     "@dashboard/shared": "*",
     "compute-rhino3d": "^0.13.0-beta",
     "d3": "^7.9.0",
+    "exceljs": "^4.4.0",
     "rhino3dm": "^8.17.0",
-    "three": "^0.172.0",
-    "vue": "^3.5.13",
-    "exceljs": "^4.4.0"
+    "three": "^0.184.0",
+    "vue": "^3.5.13"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",

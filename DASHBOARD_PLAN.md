@@ -1,5 +1,10 @@
 # Unified Dashboard — Architecture Plan
 
+> **Status (2026-07):** Split into four GitHub repos for independent permissions/releases:
+> `dashboard-front`, `dashboard-back`, `dashboard-boxout-back`, `dashboard-simple-parts-back`.
+> See workspace [`../README.md`](../README.md) and [`README.md`](README.md).
+> [`AGENT_CODING_PROMPT.md`](AGENT_CODING_PROMPT.md) is historical bootstrap guidance — do not re-run.
+
 ## What you have
 
 | Repo | Stack | What it does |

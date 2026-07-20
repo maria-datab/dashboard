@@ -7,24 +7,14 @@ const routes = [
     component: () => import('./views/HomeView.vue'),
   },
   {
-    path: '/boxout',
+    path: '/boxout/:pathMatch(.*)*',
     name: 'boxout',
-    component: () => import('./views/ToolFrameView.vue'),
-    props: {
-      title: 'DoorBoxOut',
-      originEnvKey: 'VITE_BOXOUT_ORIGIN',
-      defaultOrigin: 'http://127.0.0.1:5174',
-    },
+    component: () => import('@dashboard/boxout/App.vue'),
   },
   {
-    path: '/simple-parts',
+    path: '/simple-parts/:pathMatch(.*)*',
     name: 'simple-parts',
-    component: () => import('./views/ToolFrameView.vue'),
-    props: {
-      title: 'Simple Parts',
-      originEnvKey: 'VITE_SIMPLE_PARTS_ORIGIN',
-      defaultOrigin: 'http://127.0.0.1:5175',
-    },
+    component: () => import('@dashboard/simple-parts/App.vue'),
   },
 ]
 

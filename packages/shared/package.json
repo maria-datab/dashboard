@@ -5,13 +5,17 @@
   "type": "module",
   "exports": {
     "./styles/tokens.css": "./styles/tokens.css",
+    "./styles/layout-mobile.css": "./styles/layout-mobile.css",
     "./components/ChatPanel.vue": "./components/ChatPanel.vue",
     "./components/Sidebar.vue": "./components/Sidebar.vue",
     "./components/MobileToggle.vue": "./components/MobileToggle.vue",
     "./composables/useJobPoller.js": "./composables/useJobPoller.js",
+    "./env.js": "./env.js",
+    "./rhino/loadRhino.js": "./rhino/loadRhino.js",
     "./types.js": "./types.js"
   },
   "peerDependencies": {
-    "vue": "^3.5.0"
+    "vue": "^3.5.0",
+    "rhino3dm": "^8.17.0"
   }
 }

@@ -1,15 +1,5 @@
-import rhino3dm from 'rhino3dm/rhino3dm.module.min.js'
-import wasmUrl from 'rhino3dm/rhino3dm.wasm?url'
+import { loadRhino } from '@dashboard/shared/rhino/loadRhino.js'
 import { DATAB_PART_KEY } from './dxfMetadata.js'
-
-let rhinoPromise = null
-
-function getRhino() {
-  if (!rhinoPromise) {
-    rhinoPromise = rhino3dm({ locateFile: () => wasmUrl })
-  }
-  return rhinoPromise
-}
 
 function readPartKeyFromObject(obj) {
   if (!obj?.getUserString) return ''
@@ -177,7 +167,7 @@ export async function normalizePreviewMeshes3d(meshes3d, initialPartKeys = []) {
     }
   }
 
-  const rhino = await getRhino()
+  const rhino = await loadRhino()
   const entries = []
   for (let i = 0; i < meshes3d.length; i++) {
     const json = meshes3d[i]
@@ -220,7 +210,7 @@ export async function normalizeMeshes3d(meshes3d) {
  * meshes to preview.
  */
 export async function extractMeshesFrom3dm(arrayBuffer) {
-  const rhino = await getRhino()
+  const rhino = await loadRhino()
   const doc = rhino.File3dm.fromByteArray(new Uint8Array(arrayBuffer))
   if (!doc) return []
 

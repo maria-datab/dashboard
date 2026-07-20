@@ -1,9 +1,11 @@
 <script setup>
+import MobileToggle from '@dashboard/shared/components/MobileToggle.vue'
 import ThreeMeshViewer from './components/ThreeMeshViewer.vue'
 import NestingResultModal from './components/NestingResultModalComponent.vue'
-import ModifiedPartsToggle from './components/ModifiedPartsToggle.vue'
-import SidebarComponent from './components/SidebarComponent.vue'
+import ViewerCheckbox from './components/ViewerCheckbox.vue'
+import AppSidebar from './components/AppSidebar.vue'
 import { useApp } from './features/useApp.js'
+import './styles/app.css'
 
 const version = '0.1.8'
 
@@ -61,7 +63,7 @@ const {
 
 <template>
   <div class="app">
-    <SidebarComponent
+    <AppSidebar
       :messages="messages"
       :busy="busy"
       :busy-message="busyMessage"
@@ -86,12 +88,13 @@ const {
       @show-nesting-result="openNestingModal"
     />
     <main class="main">
-      <div class="mobile-toggle">
-        <input type="radio" name="mobile-pane" id="mobile-chat" />
-        <label for="mobile-chat">Agent</label>
-        <input type="radio" name="mobile-pane" id="mobile-viewer" checked />
-        <label for="mobile-viewer">DXF</label>
-      </div>
+      <MobileToggle
+        group="mobile-pane"
+        :tabs="[
+          { id: 'mobile-chat', label: 'Agent' },
+          { id: 'mobile-viewer', label: 'DXF', default: true },
+        ]"
+      />
       <div class="view">
         <div v-if="viewerBusy" class="viewer-busy">
           {{ viewerBusyMessage || 'Computing 3D visualization…' }}
@@ -134,7 +137,11 @@ const {
         </div>
       </div>
       <div v-if="showMeshPreview && hasBoxes" class="viewer-toggles">
-        <ModifiedPartsToggle v-model:show-modified-parts-green="showModifiedPartsGreen" />
+        <ViewerCheckbox
+          v-model="showModifiedPartsGreen"
+          label="Show modified parts in green"
+          label-class="legend-part-green"
+        />
       </div>
     </main>
 

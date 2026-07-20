@@ -65,4 +65,9 @@ const route = useRoute()
   min-height: 0;
   overflow: hidden;
 }
+
+/* Tool apps use 100vh when standalone; fill the shell pane when embedded. */
+.dashboard-view .app {
+  height: 100%;
+}
 </style>

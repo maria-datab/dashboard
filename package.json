@@ -9,7 +9,7 @@
     "dev:boxout": "npm -w @dashboard/boxout run dev",
     "dev:simple-parts": "npm -w @dashboard/simple-parts run dev",
     "dev:dashboard": "npm -w @dashboard/app run dev",
-    "dev:all": "concurrently -n dash,box,sp -c blue,green,magenta \"npm -w @dashboard/app run dev\" \"npm -w @dashboard/boxout run dev\" \"npm -w @dashboard/simple-parts run dev\"",
+    "dev:all": "npm -w @dashboard/app run dev",
     "build:all": "npm -w @dashboard/boxout run build && npm -w @dashboard/simple-parts run build && npm -w @dashboard/app run build"
   },
   "devDependencies": {
