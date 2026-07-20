@@ -1,17 +1,16 @@
 @echo off
-REM Simple-parts backend + frontend. Does NOT start local Rhino Compute when SIMPLE_PARTS_RUN_LOCALLY=false.
+REM Simple-parts backend + frontend. Sibling: ../dashboard-simple-parts-back
 setlocal
 cd /d "%~dp0"
 
-set "BACK_DIR=%~dp0backends\simple-parts"
+set "BACK_DIR=%~dp0..\dashboard-simple-parts-back"
 set "FRONT_DIR=%~dp0apps\simple-parts"
-set "UNIFIED_ENV=%~dp0backends\.env"
+set "BACK_ENV=%BACK_DIR%\.env"
 set "RHINO_EXE=C:\Users\maria\Documents\dataB\compute\rhino.compute\rhino.compute.exe"
 
-REM Default remote; only start local Compute if SIMPLE_PARTS_RUN_LOCALLY=true
 set "USE_LOCAL_COMPUTE=false"
-if exist "%UNIFIED_ENV%" (
-  for /f "usebackq tokens=1,* delims==" %%a in (`findstr /b /i "SIMPLE_PARTS_RUN_LOCALLY=" "%UNIFIED_ENV%"`) do (
+if exist "%BACK_ENV%" (
+  for /f "usebackq tokens=1,* delims==" %%a in (`findstr /b /i "SIMPLE_PARTS_RUN_LOCALLY=" "%BACK_ENV%"`) do (
     if /i "%%b"=="true" set "USE_LOCAL_COMPUTE=true"
     if /i "%%b"=="1" set "USE_LOCAL_COMPUTE=true"
     if /i "%%b"=="false" set "USE_LOCAL_COMPUTE=false"
@@ -25,7 +24,7 @@ if errorlevel 1 (
   exit /b 1
 )
 
-if not exist "%BACK_DIR%" (
+if not exist "%BACK_DIR%\app.py" (
   echo [run-simple-parts.bat] ERROR: backend not found at "%BACK_DIR%"
   exit /b 1
 )

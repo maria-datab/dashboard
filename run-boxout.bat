@@ -1,9 +1,9 @@
 @echo off
-REM Boxout backend + frontend. Does NOT start local Rhino Compute (uses BOXOUT_COMPUTE_* from backends\.env).
+REM Boxout backend + frontend. Sibling: ../dashboard-boxout-back
 setlocal
 cd /d "%~dp0"
 
-set "BACK_DIR=%~dp0backends\boxout"
+set "BACK_DIR=%~dp0..\dashboard-boxout-back"
 set "FRONT_DIR=%~dp0apps\boxout"
 
 where wt >nul 2>&1
@@ -12,7 +12,7 @@ if errorlevel 1 (
   exit /b 1
 )
 
-if not exist "%BACK_DIR%" (
+if not exist "%BACK_DIR%\app.py" (
   echo [run-boxout.bat] ERROR: backend not found at "%BACK_DIR%"
   exit /b 1
 )

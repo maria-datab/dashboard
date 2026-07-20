@@ -1,15 +1,17 @@
 /**
- * Frontend settings from apps/simple-parts/.env (VITE_* variables).
+ * Frontend settings — re-export shared helpers with simple-parts defaults.
+ * Prefer VITE_SIMPLE_PARTS_API_BASE when embedded in the dashboard shell.
  */
+import { getApiBase as sharedGetApiBase } from '@dashboard/shared/env.js'
 
-/** API base path for Flask routes (e.g. /api). No trailing slash. */
 export function getApiBase() {
-  const base = import.meta.env.VITE_API_BASE
-  const raw = typeof base === 'string' && base.length > 0 ? base : '/api'
-  return raw.replace(/\/$/, '')
+  const specific = import.meta.env.VITE_SIMPLE_PARTS_API_BASE
+  if (typeof specific === 'string' && specific.trim()) {
+    return specific.trim().replace(/\/$/, '')
+  }
+  return sharedGetApiBase('/api')
 }
 
-/** Join API base with a path segment (e.g. apiUrl('chat') → /api/chat). */
 export function apiUrl(path) {
   const segment = path.startsWith('/') ? path.slice(1) : path
   return `${getApiBase()}/${segment}`

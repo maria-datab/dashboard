@@ -1,16 +1,24 @@
 /**
- * Frontend settings from boxout-front/.env (VITE_* variables).
+ * Frontend settings — re-export shared helpers with boxout defaults.
+ * Prefer VITE_BOXOUT_API_BASE when embedded in the dashboard shell.
  */
+import {
+  apiUrl as sharedApiUrl,
+  getApiBase as sharedGetApiBase,
+  getPollIntervalMs,
+} from '@dashboard/shared/env.js'
 
-/** API base path or URL for Flask routes (e.g. /api/app) */
+export { getPollIntervalMs }
+
 export function getApiBase() {
-  const base = import.meta.env.VITE_API_BASE
-  return typeof base === 'string' && base.length > 0 ? base : '/api/app'
+  const specific = import.meta.env.VITE_BOXOUT_API_BASE
+  if (typeof specific === 'string' && specific.trim()) {
+    return specific.trim().replace(/\/$/, '')
+  }
+  return sharedGetApiBase('/api/app')
 }
 
-/** Poll interval while a solve ticket is running (ms) */
-export function getPollIntervalMs() {
-  const raw = import.meta.env.VITE_POLL_INTERVAL_MS
-  const ms = Number(raw)
-  return Number.isFinite(ms) && ms > 0 ? ms : 1200
+export function apiUrl(path) {
+  const segment = path.startsWith('/') ? path.slice(1) : path
+  return `${getApiBase()}/${segment}`
 }

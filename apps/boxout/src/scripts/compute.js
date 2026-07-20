@@ -1,24 +1,17 @@
 /**
  * Browser-side Grasshopper solve client and rhino3dm decoding.
- * API base and poll interval come from boxout-front/.env (VITE_*).
+ * API base and poll interval come from .env (VITE_*).
  */
 
 import { markRaw } from 'vue'
-import rhino3dm from 'rhino3dm/rhino3dm.module.js'
-import rhino3dmWasm from 'rhino3dm/rhino3dm.wasm?url'
-
 import { getApiBase, getPollIntervalMs } from '@/scripts/env.js'
+import { runJobPoll } from '@dashboard/shared/composables/useJobPoller.js'
+import { loadRhino } from '@dashboard/shared/rhino/loadRhino.js'
+
+export { loadRhino }
 
 const API_BASE = getApiBase()
 const POLL_INTERVAL_MS = getPollIntervalMs()
-
-let rhino = null
-let loadPromise = null
-
-/** Delay helper for poll loop */
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
 
 /**
  * JSON fetch with consistent error handling.
@@ -32,22 +25,6 @@ async function fetchJson(url, options) {
     throw new Error(body.error || `${res.status} ${res.statusText}`)
   }
   return body
-}
-
-/**
- * Load rhino3dm WASM once (singleton).
- * @returns {Promise<object>} rhino3dm module
- */
-export async function loadRhino() {
-  if (rhino) return rhino
-  if (loadPromise) return loadPromise
-
-  loadPromise = rhino3dm({ locateFile: () => rhino3dmWasm }).then((m) => {
-    rhino = m
-    return m
-  })
-
-  return loadPromise
 }
 
 /**
@@ -195,26 +172,24 @@ export async function runSolve(
   { onSnapshot, pollIntervalMs = POLL_INTERVAL_MS, shouldAbort, variationIndices, quantities } = {},
 ) {
   await loadRhino()
-  const start = await startSolveJob(inputLists, { variationIndices, quantities })
-  const jobId = start.jobId
-
-  while (true) {
-    if (shouldAbort?.()) {
+  let jobId
+  try {
+    return await runJobPoll({
+      startFn: async () => {
+        const start = await startSolveJob(inputLists, { variationIndices, quantities })
+        jobId = start.jobId
+        return start
+      },
+      pollFn: getSolveJob,
+      onSnapshot,
+      intervalMs: pollIntervalMs,
+      shouldAbort,
+    })
+  } catch (err) {
+    if (err?.message === 'aborted') {
       return { status: 'aborted', jobId }
     }
-
-    const snapshot = await getSolveJob(jobId)
-    onSnapshot?.(snapshot)
-
-    if (snapshot.status === 'completed') {
-      return snapshot
-    }
-
-    if (snapshot.status === 'failed') {
-      throw new Error(snapshot.error || 'Solver failed')
-    }
-
-    await sleep(pollIntervalMs)
+    throw err
   }
 }
 
