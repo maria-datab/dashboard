@@ -1,7 +1,7 @@
 <script setup>
 /**
- * simple-parts ChatPanel — delegates infrastructure to SharedChatPanel,
- * owns all app-specific message kinds and enriched native bubbles.
+ * simple-parts ChatPanel — wraps SharedChatPanel with app file types,
+ * domain message kinds, and Nest CTA.
  */
 import SharedChatPanel from '@dashboard/shared/components/ChatPanel.vue'
 import { ref, watch } from 'vue'

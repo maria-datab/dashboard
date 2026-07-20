@@ -4,13 +4,13 @@
  */
 import MobileToggle from '@dashboard/shared/components/MobileToggle.vue'
 import SharedSidebar from '@dashboard/shared/components/Sidebar.vue'
-import SharedChatPanel from '@dashboard/shared/components/ChatPanel.vue'
 import ThreeDViewer from './components/3DViewer.vue'
 import CsvPreviewComponent from './components/CsvPreviewComponent.vue'
 import ParallelCoordinatesComponent from './components/ParallelCoordinatesComponent.vue'
 import NestingPanelCountComponent from './components/NestingPanelCountComponent.vue'
 import NestingCurvePreviewComponent from './components/NestingCurvePreviewComponent.vue'
 import SendResultsComponent from './components/SendResultsComponent.vue'
+import ChatPanelComponent from './components/ChatPanelComponent.vue'
 import { useApp } from './features/useApp.js'
 import './styles/app.css'
 
@@ -46,15 +46,12 @@ const {
 <template>
   <div class="app">
     <SharedSidebar title="DoorBoxOut">
-      <SharedChatPanel
+      <ChatPanelComponent
         class="chat-slot"
         :messages="chatMessages"
         :busy="csvAnalyzing"
         :awaiting-confirm="!!pendingFileImport"
-        :has-items="csvParamCount > 0"
-        :accepted-extensions="['.csv', '.xlsx', '.jpg', '.jpeg', '.png']"
-        empty-hint="Describe a box as D × H × W (e.g. 300 × 2100 × 900 mm) or drag/drop a CSV, Excel, or image."
-        composer-placeholder="e.g. 300 × 2100 × 900 (D × H × W)…"
+        :has-boxes="csvParamCount > 0"
         @send-text="processChatText"
         @attach-file="processChatFile"
         @attach-error="onAttachError"

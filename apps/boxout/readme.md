@@ -45,7 +45,7 @@ This is the path from “user picks a file” to “3D geometry and nesting coun
 ```mermaid
 flowchart TB
   user[User]
-  sidebar["@dashboard/shared Sidebar + ChatPanel"]
+  sidebar["SharedSidebar + ChatPanelComponent"]
   app[App.vue]
   csvScript[csv.js]
   viewer[3DViewer.vue]
@@ -138,7 +138,7 @@ flowchart LR
 
 | Area | Component | Purpose |
 |------|-----------|---------|
-| Left | `@dashboard/shared` `Sidebar` + `ChatPanel` | Chat input (text, attach, drag-drop), append/overwrite confirm, Clear all |
+| Left | `@dashboard/shared` `Sidebar` + local `ChatPanelComponent` | Chat input (text, attach, drag-drop), append/overwrite confirm, Clear all |
 | Center top | `ParallelCoordinatesComponent.vue` | D3 chart: one line per variation, three axes |
 | Center middle | `CsvPreviewComponent.vue` + `CsvVariationRow.vue` | Table of parameters; click row to select |
 | Center bottom | `NestingPanelCountComponent.vue` | Per Box + Full Set nesting counts (Kiefer / Film each) |
@@ -240,8 +240,9 @@ Important functions:
 
 ### Vue components
 
-#### Shared shell — `@dashboard/shared` `Sidebar` + `ChatPanel` (wired in `App.vue`)
+#### Shared shell — `@dashboard/shared` `Sidebar` + local [`ChatPanelComponent.vue`](src/components/ChatPanelComponent.vue)
 
+- `ChatPanelComponent` wraps shared `ChatPanel` with boxout file types and copy
 - Chat message list, text composer, **Attach**, **Send**, **Clear all**
 - Drag-and-drop CSV/Excel on the panel
 - Confirm buttons for **append** / **overwrite** / **cancel** when importing over existing boxes
