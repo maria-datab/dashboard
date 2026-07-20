@@ -27,7 +27,7 @@ The dev server runs on Vite’s default port (5173) and proxies `/api` to `http:
 
 ```
 index.html → main.js → App.vue
-                           ├── SidebarComponent → ChatPanelComponent
+                           ├── SharedSidebar → ChatPanelComponent (domain slots)
                            └── main (viewer)
                                  ├── ThreeMeshViewer (Hops meshes3d preview)
                                  ├── DXFViewerComponent (2D or local 3D)
@@ -69,7 +69,7 @@ index.html → main.js → App.vue
 | File | Role |
 |------|------|
 | `main.js` | Application entry: creates the Vue app, imports global styles, mounts `App.vue`. |
-| `App.vue` | Layout: sidebar + viewer + nesting modal. Delegates all logic to `useApp()`. |
+| `App.vue` | Layout: shared `Sidebar` + local `ChatPanelComponent` + viewer + nesting modal. Delegates logic to `useApp()`. |
 | `features/useApp.js` | Upload flow, Hops API, viewer data (`viewerDxfText`, `viewerBoundaries`, …), nesting. |
 | `features/shared/createAppState.js` | Central reactive state factory. |
 | `features/chat/useChat.js` | NL chat message handling. |
@@ -81,8 +81,7 @@ index.html → main.js → App.vue
 
 | File | Role |
 |------|------|
-| `SidebarComponent.vue` | Left column: title and chat panel. |
-| `ChatPanelComponent.vue` | Message bubbles, file upload, composer, **Nest** button when `canStartNesting`. |
+| `ChatPanelComponent.vue` | App-specific chat bubbles (sheet/material/nesting) + Nest CTA; wraps shared `ChatPanel`. |
 | `DXFViewerComponent.vue` | 2D (`Dxf2DViewer`) or local 3D (`PlanView3DViewer`) preview. |
 | `ThreeMeshViewer.vue` | Three.js orthographic viewer for Hops `meshes3d` JSON. |
 | `NestingResultModalComponent.vue` | Modal with flat DXF preview and download link after nesting. |

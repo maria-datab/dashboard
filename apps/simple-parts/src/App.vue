@@ -1,9 +1,10 @@
 <script setup>
 import MobileToggle from '@dashboard/shared/components/MobileToggle.vue'
+import SharedSidebar from '@dashboard/shared/components/Sidebar.vue'
 import ThreeMeshViewer from './components/ThreeMeshViewer.vue'
 import NestingResultModal from './components/NestingResultModalComponent.vue'
 import ViewerCheckbox from './components/ViewerCheckbox.vue'
-import AppSidebar from './components/AppSidebar.vue'
+import ChatPanelComponent from './components/ChatPanelComponent.vue'
 import { useApp } from './features/useApp.js'
 import './styles/app.css'
 
@@ -63,30 +64,33 @@ const {
 
 <template>
   <div class="app">
-    <AppSidebar
-      :messages="messages"
-      :busy="busy"
-      :busy-message="busyMessage"
-      :has-boxes="hasBoxes"
-      :can-start-nesting="showNestingButton"
-      :nesting-button-prompt="nestingButtonPrompt"
-      :nesting-needs-rerun="nestingNeedsRerun"
-      :active-sheet-size-select-id="activeSheetSizeSelectId"
-      :active-sheet-size-confirm-id="activeSheetSizeConfirmId"
-      :active-material-select-id="activeMaterialSelectId"
-      :active-material-confirm-id="activeMaterialConfirmId"
-      :pending-sheet-thickness="pendingSheetSize?.sheetThickness ?? null"
-      @attach-file="onAttachFile"
-      @attach-error="onAttachError"
-      @send-text="onSendText"
-      @clear-all="onClearAll"
-      @start-nesting="onStartNesting"
-      @sheet-size-choice="onSheetSizeChoice"
-      @modify-sheet-size="onModifySheetSize"
-      @material-choice="onMaterialChoice"
-      @modify-material="onModifyMaterial"
-      @show-nesting-result="openNestingModal"
-    />
+    <SharedSidebar title="Simple Parts">
+      <ChatPanelComponent
+        class="chat-slot"
+        :messages="messages"
+        :busy="busy"
+        :busy-message="busyMessage"
+        :has-boxes="hasBoxes"
+        :can-start-nesting="showNestingButton"
+        :nesting-button-prompt="nestingButtonPrompt"
+        :nesting-needs-rerun="nestingNeedsRerun"
+        :active-sheet-size-select-id="activeSheetSizeSelectId"
+        :active-sheet-size-confirm-id="activeSheetSizeConfirmId"
+        :active-material-select-id="activeMaterialSelectId"
+        :active-material-confirm-id="activeMaterialConfirmId"
+        :pending-sheet-thickness="pendingSheetSize?.sheetThickness ?? null"
+        @attach-file="onAttachFile"
+        @attach-error="onAttachError"
+        @send-text="onSendText"
+        @clear-all="onClearAll"
+        @start-nesting="onStartNesting"
+        @sheet-size-choice="onSheetSizeChoice"
+        @modify-sheet-size="onModifySheetSize"
+        @material-choice="onMaterialChoice"
+        @modify-material="onModifyMaterial"
+        @show-nesting-result="openNestingModal"
+      />
+    </SharedSidebar>
     <main class="main">
       <MobileToggle
         group="mobile-pane"
@@ -175,6 +179,12 @@ const {
 </template>
 
 <style scoped>
+.chat-slot {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
 .view {
   position: relative;
 }

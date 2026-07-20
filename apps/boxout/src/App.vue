@@ -3,7 +3,8 @@
  * Root layout: sidebar chat + variation table + 3D solve viewer.
  */
 import MobileToggle from '@dashboard/shared/components/MobileToggle.vue'
-import AppSidebar from './components/AppSidebar.vue'
+import SharedSidebar from '@dashboard/shared/components/Sidebar.vue'
+import SharedChatPanel from '@dashboard/shared/components/ChatPanel.vue'
 import ThreeDViewer from './components/3DViewer.vue'
 import CsvPreviewComponent from './components/CsvPreviewComponent.vue'
 import ParallelCoordinatesComponent from './components/ParallelCoordinatesComponent.vue'
@@ -44,17 +45,23 @@ const {
 
 <template>
   <div class="app">
-    <AppSidebar
-      :messages="chatMessages"
-      :busy="csvAnalyzing"
-      :awaiting-confirm="!!pendingFileImport"
-      :has-boxes="csvParamCount > 0"
-      @send-text="processChatText"
-      @attach-file="processChatFile"
-      @attach-error="onAttachError"
-      @confirm-choice="finishFileImport"
-      @clear-all="onClearAll"
-    />
+    <SharedSidebar title="DoorBoxOut">
+      <SharedChatPanel
+        class="chat-slot"
+        :messages="chatMessages"
+        :busy="csvAnalyzing"
+        :awaiting-confirm="!!pendingFileImport"
+        :has-items="csvParamCount > 0"
+        :accepted-extensions="['.csv', '.xlsx', '.jpg', '.jpeg', '.png']"
+        empty-hint="Describe a box as D × H × W (e.g. 300 × 2100 × 900 mm) or drag/drop a CSV, Excel, or image."
+        composer-placeholder="e.g. 300 × 2100 × 900 (D × H × W)…"
+        @send-text="processChatText"
+        @attach-file="processChatFile"
+        @attach-error="onAttachError"
+        @confirm-choice="finishFileImport"
+        @clear-all="onClearAll"
+      />
+    </SharedSidebar>
     <div class="main">
       <div
         class="center-panel"
@@ -139,16 +146,9 @@ const {
 </template>
 
 <style scoped>
-.app {
-  display: flex;
-  height: 100vh;
-}
-
-.main {
+.chat-slot {
   flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: row;
+  min-height: 0;
 }
 
 .center-panel {
